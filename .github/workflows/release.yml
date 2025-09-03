@@ -57,5 +57,6 @@ jobs:
           podman version
           docker version
           ./bin/opm version
+          podman pull quay.io/kenmoini/banana-phone:latest
           ./hack/testBundles.sh && \
           make catalog-build
