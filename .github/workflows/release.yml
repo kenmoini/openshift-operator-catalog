@@ -43,4 +43,4 @@ jobs:
       - name: Build release
         run: |
           ./hack/testBundles.sh && \
-          $(MAKE) catalog-build
+          make catalog-build

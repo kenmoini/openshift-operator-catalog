@@ -19,12 +19,8 @@ on:
   workflow_dispatch:
 
 jobs:
-  # Build the container
-  # Check if we can build multi-arch faster
-  # https://learn.arm.com/learning-paths/cross-platform/github-arm-runners/actions/
-  # https://skyworkz.nl/blog/multi-arch-docker-image-10x-faster
-  build-catalog:
-    name: Build Operator Catalog
+  test-catalog:
+    name: Test Operator Catalog
     runs-on: ubuntu-latest
     timeout-minutes: 10
     strategy:
