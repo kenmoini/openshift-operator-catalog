@@ -47,16 +47,17 @@ jobs:
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
 
+      - name: Build Environment info
+        run: |
+          podman version
+          docker version
+          make opm
+          ./bin/opm version
+
       - name: Build release
         run: |
           export CATALOG_VERSION=${GITHUB_REF_NAME}
-          export CONTAINER_TOOL=docker
-          pwd
-          tree
+          export CONTAINER_TOOL=podman
           make opm
-          podman version
-          docker version
-          ./bin/opm version
-          podman pull quay.io/kenmoini/banana-phone:latest
           ./hack/testBundles.sh && \
           make catalog-build
