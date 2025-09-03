@@ -45,5 +45,7 @@ jobs:
         run: |
           export CATALOG_VERSION=${GITHUB_REF_NAME}
           pwd
+          tree
+          ll
           ./hack/testBundles.sh && \
           make catalog-build
