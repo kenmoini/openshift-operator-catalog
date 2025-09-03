@@ -8,7 +8,6 @@ on:
   push:
     branches:
       - main
-      - stable
     tags:
       - v*
     paths-ignore:
@@ -42,4 +41,4 @@ jobs:
 
       - name: Running Data Processing tests
         run: |
-          ./hack/processBundles.sh
+          ./hack/testBundles.sh
