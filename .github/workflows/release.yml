@@ -54,6 +54,8 @@ jobs:
           pwd
           tree
           make opm
+          podman version
+          docker version
           ./bin/opm version
           ./hack/testBundles.sh && \
           make catalog-build
