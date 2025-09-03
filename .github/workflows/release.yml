@@ -47,6 +47,6 @@ jobs:
           pwd
           tree
           make opm
-          opm version
+          ./bin/opm version
           ./hack/testBundles.sh && \
           make catalog-build
