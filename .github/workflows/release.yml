@@ -54,4 +54,5 @@ jobs:
           make opm
           ./hack/testBundles.sh && \
           make catalog-build-dockerfile
+          tree
           cat Dockerfile.${CATALOG_VERSION}
