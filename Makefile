@@ -58,6 +58,10 @@ endif
 catalog-build: opm ## Build a catalog image.
 	$(OPM) index add --container-tool $(CONTAINER_TOOL) --mode semver --tag $(CATALOG_IMG) --bundles $(BUNDLE_IMAGES) $(FROM_INDEX_OPT)
 
+.PHONY: catalog-build-dockerfile
+catalog-build-dockerfile: opm ## Build a catalog image and output the dockerfile.
+	$(OPM) index add --container-tool $(CONTAINER_TOOL) --out-dockerfile Dockerfile.$(CATALOG_VERSION) --mode semver --tag $(CATALOG_IMG) --bundles $(BUNDLE_IMAGES) $(FROM_INDEX_OPT)
+
 # Push the catalog image.
 .PHONY: catalog-push
 catalog-push: ## Push a catalog image.

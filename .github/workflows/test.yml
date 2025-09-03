@@ -37,4 +37,8 @@ jobs:
 
       - name: Running Data Processing tests
         run: |
-          ./hack/testBundles.sh
+          export CATALOG_VERSION=${GITHUB_REF_NAME}
+          export CONTAINER_TOOL=podman
+          make opm
+          ./hack/testBundles.sh && \
+          make catalog-build

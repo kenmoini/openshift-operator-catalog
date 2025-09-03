@@ -41,16 +41,9 @@ jobs:
       - name: Check out code
         uses: actions/checkout@v4
 
-      - name: Set up QEMU
-        uses: docker/setup-qemu-action@v3
-
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v3
-
       - name: Build Environment info
         run: |
           podman version
-          docker version
           make opm
           ./bin/opm version
 
@@ -60,4 +53,5 @@ jobs:
           export CONTAINER_TOOL=podman
           make opm
           ./hack/testBundles.sh && \
-          make catalog-build
+          make catalog-build-dockerfile
+          cat Dockerfile.${CATALOG_VERSION}

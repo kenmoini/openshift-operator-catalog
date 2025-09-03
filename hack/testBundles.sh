@@ -3,6 +3,15 @@
 # Fail on pull errors
 set -e
 
+# Pull in env var or set default
+export CONTAINER_TOOL=${CONTAINER_TOOL:-podman}
+
+# Check to see if CONTAINER_TOOL is present
+if ! command -v ${CONTAINER_TOOL} &> /dev/null; then
+  echo "${CONTAINER_TOOL} could not be found"
+  exit 1
+fi
+
 # Check to see if yq is present
 if ! command -v yq &> /dev/null; then
   echo "yq could not be found"
