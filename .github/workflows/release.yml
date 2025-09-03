@@ -41,18 +41,24 @@ jobs:
       - name: Check out code
         uses: actions/checkout@v4
 
+      - name: Login to Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: "${{ env.REGISTRY_HOSTNAME }}"
+          username: "${{ secrets.REGISTRY_USERNAME }}"
+          password: "${{ secrets.REGISTRY_TOKEN }}"
+
       - name: Build Environment info
         run: |
-          podman version
+          docker version
           make opm
           ./bin/opm version
 
       - name: Build release
         run: |
           export CATALOG_VERSION=${GITHUB_REF_NAME}
-          export CONTAINER_TOOL=podman
+          export CONTAINER_TOOL=docker
           make opm
           ./hack/testBundles.sh && \
-          make catalog-build-dockerfile
-          tree
-          cat Dockerfile.${CATALOG_VERSION}
+          make catalog-build
+          make catalog-push
