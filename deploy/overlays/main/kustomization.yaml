@@ -1,0 +1,11 @@
+resources:
+- ../../base
+
+patches:
+  - path: patch-image.yaml
+    target:
+      group: operators.coreos.com
+      kind: CatalogSource
+      name: kemo-openshift-operators-catalog
+      namespace: openshift-marketplace
+      version: v1alpha1
