@@ -3,6 +3,7 @@ name: Release - Operator Catalog
 env:
   REGISTRY_HOSTNAME: quay.io
   REGISTRY_IMAGE: quay.io/kenmoini/openshift-operator-catalog
+  BUILD_CONTEXT_PATH: .
 
 on:
   push:
