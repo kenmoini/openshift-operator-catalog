@@ -2,6 +2,6 @@
 name: openshift-upgrade-accelerator-operator
 bundles:
   - version: "main"
-    image: quay.io/kenmoini/openshift-upgrade-accelerator-operator:main
+    image: quay.io/kenmoini/openshift-upgrade-accelerator-operator-bundle:main
   #- version: "0.0.1"
-  #  image: quay.io/kenmoini/openshift-upgrade-accelerator-operator:v0.0.1
+  #  image: quay.io/kenmoini/openshift-upgrade-accelerator-operator-bundle:v0.0.1
