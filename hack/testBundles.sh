@@ -29,3 +29,6 @@ for file in bundles/*.{yml,yaml}; do
     done < <(yq -r '.bundles[] | .image' "$file")
   fi
 done
+
+
+echo "All bundle images have been tested."
