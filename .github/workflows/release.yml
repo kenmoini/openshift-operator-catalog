@@ -1,0 +1,46 @@
+name: Release - Operator Catalog
+
+env:
+  REGISTRY_HOSTNAME: quay.io
+  REGISTRY_IMAGE: quay.io/kenmoini/openshift-operator-catalog
+
+on:
+  push:
+    branches:
+      - main
+      - stable
+    tags:
+      - v*
+    paths-ignore:
+      - README.md
+      - .github/dependabot.yml
+      - .github/workflows/**
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+jobs:
+  # Build the container
+  # Check if we can build multi-arch faster
+  # https://learn.arm.com/learning-paths/cross-platform/github-arm-runners/actions/
+  # https://skyworkz.nl/blog/multi-arch-docker-image-10x-faster
+  build-catalog:
+    name: Build Operator Catalog
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    strategy:
+      fail-fast: false
+      matrix:
+        platform:
+          - linux/amd64
+          #- linux/arm64
+          #- linux/ppc64le
+          #- linux/s390x
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v4
+
+      - name: Run linter
+        uses: golangci/golangci-lint-action@v8
+        with:
+          version: v2.1.0
