@@ -1,4 +1,4 @@
-name: Release - Operator Catalog
+name: Test - Operator Catalog
 
 env:
   REGISTRY_HOSTNAME: quay.io
