@@ -46,5 +46,7 @@ jobs:
           export CATALOG_VERSION=${GITHUB_REF_NAME}
           pwd
           tree
+          which opm || make opm
+          opm version
           ./hack/testBundles.sh && \
           make catalog-build
