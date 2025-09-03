@@ -40,6 +40,7 @@ jobs:
       - name: Check out code
         uses: actions/checkout@v4
 
-      - name: Running Data Processing tests
+      - name: Build release
         run: |
-          ./hack/processBundles.sh
+          ./hack/testBundles.sh && \
+          $(MAKE) catalog-build
