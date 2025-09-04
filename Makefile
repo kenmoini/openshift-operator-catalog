@@ -60,7 +60,11 @@ docker-push: ## Push docker image with the manager.
 # https://github.com/operator-framework/community-operators/blob/7f1438c/docs/packaging-operator.md#updating-your-existing-operator
 .PHONY: catalog-build
 catalog-build: opm ## Build a catalog image.
-	$(OPM) index add --container-tool $(CONTAINER_TOOL) --mode semver --tag $(CATALOG_IMG) --bundles $(BUNDLE_IMAGES) $(FROM_INDEX_OPT)
+	$(OPM) index add --container-tool $(CONTAINER_TOOL) --mode replaces --tag $(CATALOG_IMG) --bundles $(BUNDLE_IMAGES) $(FROM_INDEX_OPT)
+
+.PHONY: catalog-rebuild
+catalog-rebuild: opm ## Build a catalog image.
+	$(OPM) index prune --container-tool $(CONTAINER_TOOL) --tag $(CATALOG_IMG) --bundles $(BUNDLE_IMAGES) $(FROM_INDEX_OPT)
 
 .PHONY: catalog-build-dockerfile
 catalog-build-dockerfile: opm ## Build a catalog image and output the dockerfile.
