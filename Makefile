@@ -42,11 +42,11 @@ endif
 # A comma-separated list of bundle images (e.g. make catalog-build BUNDLE_IMAGES=example.com/operator-bundle:v0.1.0,example.com/operator-bundle:v0.2.0).
 # These images MUST exist in a registry and be pull-able.
 #BUNDLE_IMAGES ?= $(BUNDLE_IMG)
-BUNDLE_IMAGES := $(shell ./hack/processBundles.sh -q)
+# BUNDLE_IMAGES := $(shell ./hack/processBundles.sh -q)
 
-.PHONY: print-bundle-images
-print-bundle-images:
-	@echo $(BUNDLE_IMAGES)
+# .PHONY: print-bundle-images
+# print-bundle-images:
+# 	@echo $(BUNDLE_IMAGES)
 
 # Set CATALOG_BASE_IMG to an existing catalog image tag to add $BUNDLE_IMAGES to that image.
 ifneq ($(origin CATALOG_BASE_IMG), undefined)
@@ -60,21 +60,21 @@ docker-push: ## Push docker image with the manager.
 # Build a catalog image by adding bundle images to an empty catalog using the operator package manager tool, 'opm'.
 # This recipe invokes 'opm' in 'semver' bundle add mode. For more information on add modes, see:
 # https://github.com/operator-framework/community-operators/blob/7f1438c/docs/packaging-operator.md#updating-your-existing-operator
-.PHONY: catalog-build
-catalog-build: opm ## Build a catalog image.
-	$(OPM) index add --container-tool $(CONTAINER_TOOL) --mode replaces --tag $(CATALOG_IMG) --bundles $(BUNDLE_IMAGES) $(FROM_INDEX_OPT)
+# .PHONY: catalog-build
+# catalog-build: opm ## Build a catalog image.
+# 	$(OPM) index add --container-tool $(CONTAINER_TOOL) --mode replaces --tag $(CATALOG_IMG) --bundles $(BUNDLE_IMAGES) $(FROM_INDEX_OPT)
 
 .PHONY: catalog-fbc-build
 catalog-fbc-build: opm ## Build a file based catalog image.
-	$(CONTAINER_TOOL) build -t ${IMG} -f fbc.Dockerfile .
+	$(CONTAINER_TOOL) build -t $(CATALOG_IMG) -f fbc.Dockerfile .
 
-.PHONY: catalog-rebuild
-catalog-rebuild: opm ## Build a catalog image.
-	$(OPM) index prune --container-tool $(CONTAINER_TOOL) --tag $(CATALOG_IMG) --bundles $(BUNDLE_IMAGES) $(FROM_INDEX_OPT)
+# .PHONY: catalog-rebuild
+# catalog-rebuild: opm ## Build a catalog image.
+# 	$(OPM) index prune --container-tool $(CONTAINER_TOOL) --tag $(CATALOG_IMG) --bundles $(BUNDLE_IMAGES) $(FROM_INDEX_OPT)
 
-.PHONY: catalog-build-dockerfile
-catalog-build-dockerfile: opm ## Build a catalog image and output the dockerfile.
-	$(OPM) index add --container-tool $(CONTAINER_TOOL) --out-dockerfile Dockerfile.$(CATALOG_VERSION) --mode semver --tag $(CATALOG_IMG) --bundles $(BUNDLE_IMAGES) $(FROM_INDEX_OPT)
+# .PHONY: catalog-build-dockerfile
+# catalog-build-dockerfile: opm ## Build a catalog image and output the dockerfile.
+# 	$(OPM) index add --container-tool $(CONTAINER_TOOL) --out-dockerfile Dockerfile.$(CATALOG_VERSION) --mode semver --tag $(CATALOG_IMG) --bundles $(BUNDLE_IMAGES) $(FROM_INDEX_OPT)
 
 # Push the catalog image.
 .PHONY: catalog-push
