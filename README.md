@@ -5,6 +5,7 @@
 ## Included Operators
 
 - OpenShift Upgrade Accelerator Operator
+- Java Keystore Operator
 
 ## Deploy the Operator Catalog
 
@@ -18,9 +19,9 @@ oc apply -k https://github.com/kenmoini/openshift-operator-catalog/deploy/overla
 
 ## Adding Operators to the Catalog
 
-As long as your bundles are pushed and published, all that you need to do to add an Operator Bundle to this Catalog is add it to the `bundles/` directory in a YAML file.
+As long as your bundles are pushed and published, all that you need to do to add an Operator Bundle to this Catalog is add it to the `olm-templates/` directory in a YAML file.  This uses the new OLM Template model.
 
-Once the changes are merged into either the main or stable branches, is a semver tag that starts with `v*` the GitHub Actions workflows will build the operator catalog and push.
+Once the changes are merged into either the main or stable branches, or a semver tag that starts with `v*`, the GitHub Actions workflows will build the operator catalog and push.
 
 The GitHub Actions will validate the files and add them to the Catalog.
 
@@ -30,12 +31,23 @@ The format of the file is simple:
 
 ```yaml
 ---
-name: openshift-upgrade-accelerator-operator
-bundles:
-  - version: "main"
-    image: quay.io/kenmoini/openshift-upgrade-accelerator-operator-bundle:main
-  - version: "0.0.1"
-    image: quay.io/kenmoini/openshift-upgrade-accelerator-operator-bundle:v0.0.1
-  - version: "0.0.1"
+schema: olm.template.basic
+entries:
+  # List of Channels
+  - schema: olm.package
+    name: openshift-upgrade-accelerator-operator
+    defaultChannel: alpha
+  # List of Package versions
+  - schema: olm.channel
+    package: openshift-upgrade-accelerator-operator
+    name: alpha
+    entries:
+      - name: openshift-upgrade-accelerator-operator.v0.0.2
+        replaces: openshift-upgrade-accelerator-operator.v0.0.1
+      - name: openshift-upgrade-accelerator-operator.v0.0.1
+  # List of bundle images
+  - schema: olm.bundle
+    image: quay.io/kenmoini/openshift-upgrade-accelerator-operator-bundle:v0.0.2
+  - schema: olm.bundle
     image: quay.io/kenmoini/openshift-upgrade-accelerator-operator-bundle:v0.0.1
 ```
