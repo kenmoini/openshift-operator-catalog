@@ -1,7 +1,7 @@
 ---
 name: jks-operator
 bundles:
-  - version: "0.0.3"
-    image: quay.io/kenmoini/jks-operator-bundle:v0.0.3
+  # - version: "0.0.3"
+  #   image: quay.io/kenmoini/jks-operator-bundle:v0.0.3
   - version: "0.0.4"
     image: quay.io/kenmoini/jks-operator-bundle:v0.0.4
