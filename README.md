@@ -4,17 +4,13 @@
 
 ## Included Operators
 
-- OpenShift Upgrade Accelerator Operator
-- Java Keystore Operator
+- [OpenShift Upgrade Accelerator Operator](https://github.com/kenmoini/openshift-upgrade-accelerator-operator)
+- [Java Keystore Operator](https://github.com/kenmoini/jks-operator)
 
 ## Deploy the Operator Catalog
 
 ```bash
-# Bleeding Edge
 oc apply -k https://github.com/kenmoini/openshift-operator-catalog/deploy/overlays/main/
-
-# Less blood
-oc apply -k https://github.com/kenmoini/openshift-operator-catalog/deploy/overlays/stable/
 ```
 
 ## Adding Operators to the Catalog
