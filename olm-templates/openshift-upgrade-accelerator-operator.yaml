@@ -1,0 +1,16 @@
+schema: olm.template.basic
+entries:
+  - schema: olm.package
+    name: openshift-upgrade-accelerator-operator
+    defaultChannel: alpha
+  - schema: olm.channel
+    package: openshift-upgrade-accelerator-operator
+    name: alpha
+    entries:
+      - name: openshift-upgrade-accelerator-operator.v0.0.2
+        replaces: openshift-upgrade-accelerator-operator.v0.0.1
+      - name: openshift-upgrade-accelerator-operator.v0.0.1
+  - schema: olm.bundle
+    image: quay.io/kenmoini/openshift-upgrade-accelerator-operator-bundle:v0.0.2
+  - schema: olm.bundle
+    image: quay.io/kenmoini/openshift-upgrade-accelerator-operator-bundle:v0.0.1

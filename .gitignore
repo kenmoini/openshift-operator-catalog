@@ -1,2 +1,6 @@
 bin/*
 bundle_tmp*
+fbc/*
+fbc/
+combined-olm-template.yaml
+fbc.Dockerfile

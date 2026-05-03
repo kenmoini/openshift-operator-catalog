@@ -35,10 +35,14 @@ jobs:
       - name: Check out code
         uses: actions/checkout@v6
 
+      - name: Build Environment info
+        run: |
+          docker version
+          make opm
+          ./bin/opm version
+
       - name: Running Data Processing tests
         run: |
           export CATALOG_VERSION=${GITHUB_REF_NAME}
-          export CONTAINER_TOOL=podman
-          make opm
-          ./hack/testBundles.sh && \
-          make catalog-build
+          export CONTAINER_TOOL=docker
+          ./hack/testTemplates.sh

@@ -59,6 +59,7 @@ jobs:
           export CATALOG_VERSION=${GITHUB_REF_NAME}
           export CONTAINER_TOOL=docker
           make opm
-          ./hack/testBundles.sh
-          make catalog-build
+          ./hack/testTemplates.sh
+          ./hack/generateFBC.sh
+          make catalog-fbc-build
           make catalog-push

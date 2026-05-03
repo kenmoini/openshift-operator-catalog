@@ -64,6 +64,10 @@ docker-push: ## Push docker image with the manager.
 catalog-build: opm ## Build a catalog image.
 	$(OPM) index add --container-tool $(CONTAINER_TOOL) --mode replaces --tag $(CATALOG_IMG) --bundles $(BUNDLE_IMAGES) $(FROM_INDEX_OPT)
 
+.PHONY: catalog-fbc-build
+catalog-fbc-build: opm ## Build a file based catalog image.
+	$(CONTAINER_TOOL) build -t ${IMG} -f fbc.Dockerfile .
+
 .PHONY: catalog-rebuild
 catalog-rebuild: opm ## Build a catalog image.
 	$(OPM) index prune --container-tool $(CONTAINER_TOOL) --tag $(CATALOG_IMG) --bundles $(BUNDLE_IMAGES) $(FROM_INDEX_OPT)
